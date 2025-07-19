@@ -70,25 +70,25 @@
 
 //1.创建一个节点 2.设置props 3.append：在父级进行添加，把他添加进去
 
-function render(el, container) {
-  const dom =
-    el.type === "TEXT_ELEMENT"
-      ? document.createTextNode("")
-      : document.createElement(el.type);
-  //设置多个属性 eg.id class
-  Object.keys(el.props).forEach((key) => {
-    if (key != "children") {
-      dom[key] = el.props[key];
-    }
-  });
+// function render(el, container) {
+//   const dom =
+//     el.type === "TEXT_ELEMENT"
+//       ? document.createTextNode("")
+//       : document.createElement(el.type);
+//   //设置多个属性 eg.id class
+//   Object.keys(el.props).forEach((key) => {
+//     if (key != "children") {
+//       dom[key] = el.props[key];
+//     }
+//   });
 
-  const children = el.props.children;
-  children.forEach((child) => {
-    render(child, dom);
-  });
+//   const children = el.props.children;
+//   children.forEach((child) => {
+//     render(child, dom);
+//   });
 
-  container.append(dom);
-}
+//   container.append(dom);
+// }
 
 // const textEl = createTextNode("app");
 
@@ -97,40 +97,46 @@ function render(el, container) {
 // render(App, document.querySelector('#root'))
 
 // 将const textEl = createTextNode("app");省去，直接在 createElement填写text节点的值
-function createTextNode(text) {
-  return {
-    type: "TEXT_ELEMENT",
-    props: {
-      nodeValue: text,
-      children: [],
-    },
-  };
-}
+// function createTextNode(text) {
+//   return {
+//     type: "TEXT_ELEMENT",
+//     props: {
+//       nodeValue: text,
+//       children: [],
+//     },
+//   };
+// }
 
-function createElement(type, props, ...children) {
-  return {
-    type: type,
-    props: {
-      ...props,
-      children: children.map((child) => {
-        return typeof child === "string" ? createTextNode(child) : child;
-      }),
-    },
-  };
-}
+// function createElement(type, props, ...children) {
+//   return {
+//     type: type,
+//     props: {
+//       ...props,
+//       children: children.map((child) => {
+//         return typeof child === "string" ? createTextNode(child) : child;
+//       }),
+//     },
+//   };
+// }
 
 // const App = createElement("div", { id: "app" }, "app ", "mini");
 // render(App, document.querySelector("#root"));
 
 //模仿react其余的ReactDom.createRoot
-const ReactDom = {
-  createRoot(container) {
-    return {
-      render(App) {
-        render(App, container);
-      },
-    };
-  },
-};
-const App = createElement("div", { id: "app" }, "app ", "mini");
+// const ReactDom = {
+//   createRoot(container) {
+//     return {
+//       render(App) {
+//         render(App, container);
+//       },
+//     };
+//   },
+// };
+// const App = createElement("div", { id: "app" }, "app ", "mini");
+// ReactDom.createRoot(document.querySelector("#root")).render(App);
+
+import ReactDom from "./core/ReactDom.js";
+// import React from "./core/React.js";
+import App from './App.js'
+// const App = React.createElement("div", { id: "app" }, "app ", "mini");
 ReactDom.createRoot(document.querySelector("#root")).render(App);
